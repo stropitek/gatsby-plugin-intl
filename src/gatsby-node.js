@@ -1,4 +1,5 @@
 const webpack = require("webpack")
+const { join } = require("path")
 
 function flattenMessages(nestedMessages, prefix = "") {
   return Object.keys(nestedMessages).reduce((messages, key) => {
@@ -52,21 +53,34 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
   } = pluginOptions
 
   const getMessages = (path, language) => {
+    let messages = {}
     try {
-      // TODO load yaml here
-      const messages = require(`${path}/${language}.json`)
+      // Common translation
+      messages = require(`${path}/common.${language}.json`)
 
-      return flattenMessages(messages)
     } catch (error) {
       if (error.code === "MODULE_NOT_FOUND") {
         process.env.NODE_ENV !== "test" &&
-          console.error(
-            `[gatsby-plugin-intl] couldn't find file "${path}/${language}.json"`
+        console.error(
+          `[gatsby-plugin-intl] couldn't find file "${path}/${language}.json"`
           )
       }
-
-      throw error
+        
+        throw error
+      }
+    const pageTranslationPath = join(path, page.path, `${language}.json`)
+    try {
+      const pageMessages = require(pageTranslationPath)
+      messages = {
+        ...messages,
+        ...pageMessages,
+      }
+    } catch(error) {
+      if (error.code !== "MODULE_NOT_FOUND") {
+        throw error
+      }
     }
+    return flattenMessages(messages)
   }
 
   const generatePage = (routed, language) => {
