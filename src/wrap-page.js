@@ -6,25 +6,7 @@ import { IntlContextProvider } from "./intl-context"
 
 const preferDefault = (m) => (m && m.default) || m
 
-const polyfillIntl = (language) => {
-  const locale = language.split("-")[0]
-  try {
-    if (!Intl.PluralRules) {
-      require("@formatjs/intl-pluralrules/polyfill")
-      require(`@formatjs/intl-pluralrules/locale-data/${locale}`)
-    }
-
-    if (!Intl.RelativeTimeFormat) {
-      require("@formatjs/intl-relativetimeformat/polyfill")
-      require(`@formatjs/intl-relativetimeformat/locale-data/${locale}`)
-    }
-  } catch (e) {
-    throw new Error(`Cannot find react-intl/locale-data/${language}`)
-  }
-}
-
 const withIntlProvider = (intl) => (children) => {
-  polyfillIntl(intl.language)
   return (
     <IntlProvider
       locale={intl.language}
