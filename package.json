@@ -7,18 +7,18 @@
     "url": "https://github.com/wiziple/gatsby-plugin-intl"
   },
   "dependencies": {
-    "@babel/runtime": "^7.12.5",
+    "@babel/runtime": "^7.14.6",
     "browser-lang": "^0.1.0",
     "intl": "^1.2.5",
-    "react-intl": "^5.10.19"
+    "react-intl": "^5.20.3"
   },
   "devDependencies": {
-    "@babel/cli": "^7.12.10",
-    "@babel/core": "^7.12.10",
-    "babel-preset-gatsby-package": "^0.11.0",
+    "@babel/cli": "^7.14.5",
+    "@babel/core": "^7.14.6",
+    "babel-preset-gatsby-package": "^1.8.0",
     "cross-env": "^7.0.3",
-    "jest": "^26.6.3",
-    "prettier": "^2.2.1",
+    "jest": "^27.0.5",
+    "prettier": "^2.3.1",
     "rimraf": "^3.0.2"
   },
   "homepage": "https://github.com/wiziple/gatsby-plugin-intl",
