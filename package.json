@@ -8,8 +8,6 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.12.5",
-    "@formatjs/intl-pluralrules": "^4.0.6",
-    "@formatjs/intl-relativetimeformat": "^8.0.4",
     "browser-lang": "^0.1.0",
     "intl": "^1.2.5",
     "react-intl": "^5.10.19"
