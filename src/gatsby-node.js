@@ -1,4 +1,3 @@
-const webpack = require("webpack")
 const { join } = require("path")
 
 function flattenMessages(nestedMessages, prefix = "") {
@@ -17,24 +16,12 @@ function flattenMessages(nestedMessages, prefix = "") {
 }
 
 exports.onCreateWebpackConfig = ({ actions, plugins }, pluginOptions) => {
-  const { redirectComponent = null, languages, defaultLanguage } = pluginOptions
-  if (!languages.includes(defaultLanguage)) {
-    languages.push(defaultLanguage)
-  }
-  const regex = new RegExp(languages.map((l) => l.split("-")[0]).join("|"))
+  const { redirectComponent = null } = pluginOptions
   actions.setWebpackConfig({
     plugins: [
       plugins.define({
         GATSBY_INTL_REDIRECT_COMPONENT_PATH: JSON.stringify(redirectComponent),
       }),
-      new webpack.ContextReplacementPlugin(
-        /@formatjs[/\\]intl-relativetimeformat[/\\]dist[/\\]locale-data$/,
-        regex
-      ),
-      new webpack.ContextReplacementPlugin(
-        /@formatjs[/\\]intl-pluralrules[/\\]dist[/\\]locale-data$/,
-        regex
-      ),
     ],
   })
 }
